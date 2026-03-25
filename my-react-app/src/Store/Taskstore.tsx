@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import {Data, type Task } from '../Data/Data';
-// Store/Taskstore.ts
+
 export interface TaskState {
   data: Task[];
   updateStatus: (index: number, status: Task["status"]) => void;

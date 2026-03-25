@@ -3,8 +3,9 @@ import { Filter } from "./Filter";
 export const FilterButtons = () => {
   const { status, priority, setStatus, setPriority } = Filter();
 
-  const isActiveStatus = (value) => status === value;
-  const isActivePriority = (value) => priority === value;
+  // Fixed: Add explicit 'string' type to parameters
+  const isActiveStatus = (value: string): boolean => status === value;
+  const isActivePriority = (value: string): boolean => priority === value;
 
   return (
     <div className="bg-white border-b border-gray-200 px-4 py-3">
@@ -60,16 +61,6 @@ export const FilterButtons = () => {
         >
           To Do
         </button>
-
-        {/* <button
-          onClick={() => {
-            setStatus(null);      // remove ?status
-            setPriority(null);    // remove ?priority
-          }}
-          className="text-xs px-3 py-1.5 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 hover:border-gray-400 transition-all"
-        >
-          Clear
-        </button> */}
       </div>
 
       {/* Priority filters */}
@@ -103,7 +94,6 @@ export const FilterButtons = () => {
         >
           High
         </button>
-        
       </div>
     </div>
   );
