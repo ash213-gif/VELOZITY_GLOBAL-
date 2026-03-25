@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import { useTaskStore } from "../Store/Taskstore";
 import { Filter } from "../features/Filter";
-import { useState } from "react";
+import type { Task, Status } from "../Data/Data";
 
-type ColumnId = "inreview" | "onprogress" | "todo" | "done";
+type ColumnId = Status; // "todo" | "inreview" | "done" | "onprogress"
 
 export default function Kanban() {
   const data = useTaskStore((state) => state.data);
@@ -13,13 +14,13 @@ export default function Kanban() {
 
   const [draggingId, setDraggingId] = useState<string | null>(null);
 
-  const filteredData = data.filter((t) => {
+  const filteredData: Task[] = data.filter((t: Task) => {
     const matchesStatus = !status || t.status === status;
     const matchesPriority = !priority || t.priority === priority;
     return matchesStatus && matchesPriority;
   });
 
-  const getColumnTasks = (status: ColumnId) =>
+  const getColumnTasks = (status: ColumnId): Task[] =>
     filteredData.filter((t) => t.status === status);
 
   // Card drag start
@@ -39,7 +40,7 @@ export default function Kanban() {
     setDraggingId(null);
   };
 
-  const renderCard = (task, extraClasses = "") => (
+  const renderCard = (task: Task, extraClasses = "") => (
     <div
       key={task.id}
       draggable
